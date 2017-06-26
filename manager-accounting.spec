@@ -2,17 +2,22 @@
 %define     name manager-accounting
 %define     _install_dir opt/%{name}
 
+# We don't want any bundled libs in these directories to generate Provides
+%global __provides_exclude_from %{_install_dir}/.*\\.so
+%global private_libs libe_sqlite3
+%global __requires_exclude ^(%{private_libs})\\.so
+
 Name:       %{name}
 Version:    17.6.52
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Accounting software
 Group:      Office/Productivity
 License:    Redistributable, no modification permitted
 URL:        http://www.manager.io
-BuildArch:  x86_64
+BuildArch:  x86_64 armv7hl
 Source0:    https://mngr.s3.amazonaws.com/manager-accounting.zip
 Source1:    LICENSE
-Source2:    https://github.com/ericsink/SQLitePCL.raw/raw/master/linux/x64/libe_sqlite3.so
+Source2:    SQLitePCL.raw.git.41f2c4e.tar.gz
 Requires:   mono-core mono-web gtk-sharp2 webkitgtk webkit-sharp
 
 
@@ -23,12 +28,25 @@ receivables, payables, taxes and comprehensive financial reports.
 
 
 %prep
-%setup -c -T
+%setup -c -T -a 2
 unzip -p %{SOURCE0} %{name}_%{version}.tar.gz |tar xvz --strip-components=1
 cp -a %{SOURCE1} .
 
 
 %build
+# Build libe_sqlite3.so
+%ifarch x86_64
+gcc -m64 \
+%endif
+%ifarch armv7hl
+gcc \
+%endif
+-shared -fPIC -O -DNDEBUG -DSQLITE_DEFAULT_FOREIGN_KEYS=1 \
+-DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS4 \
+-DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_JSON1 \
+-DSQLITE_ENABLE_RTREE -o %{_install_dir}/libe_sqlite3.so \
+SQLitePCL.raw/sqlite3/sqlite3.c
+
 #execute using 'mono' instead of 'cli'
 sed -i 's/cli/mono/' %{_install_dir}/%{name}
 
@@ -41,7 +59,8 @@ rm -rf %{buildroot}
 %{__install} -p -m0755 %{_install_dir}/*.exe %{buildroot}/%{_install_dir}
 %{__install} -p -m0644 %{_install_dir}/*.dll %{buildroot}/%{_install_dir}
 %{__install} -p -m0644 %{_install_dir}/*.ttf %{buildroot}/%{_install_dir}
-%{__install} -p -m0644 %{SOURCE2} %{buildroot}/%{_install_dir}
+%{__install} -p -m0644 %{_install_dir}/*.so %{buildroot}/%{_install_dir}
+
 
 %{__install} -d %{buildroot}/%{_bindir}
 ln -sf /%{_install_dir}/%{name} %{buildroot}/%{_bindir}/%{name}
@@ -82,6 +101,11 @@ rm -rf %{_builddir}/%{name}*
 
 
 %changelog
+* Mon Jun 26 2017 Vaughan <devel at agrez dot net> - 17.6.52-2
+- Build libe_sqlite3.so from source
+- Exclude libe_sqlite3.so from Requires & Provides
+- Fix build for armv7hl
+
 * Mon Jun 26 2017 Vaughan <devel at agrez dot net> - 17.6.52-1
 - Update to 17.6.52 release
 - Update Source0 url
