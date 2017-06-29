@@ -34,16 +34,12 @@ cp -a %{SOURCE1} .
 
 %build
 # Build libe_sqlite3.so
-%ifarch x86_64
-gcc -m64 \
-%endif
-%ifarch armv7hl
-gcc \
-%endif
--shared -fPIC -O -DNDEBUG -DSQLITE_DEFAULT_FOREIGN_KEYS=1 \
+CFLAGS="-shared -fPIC -DNDEBUG -DSQLITE_DEFAULT_FOREIGN_KEYS=1 \
 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS4 \
 -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_JSON1 \
--DSQLITE_ENABLE_RTREE -o %{_install_dir}/libe_sqlite3.so \
+-DSQLITE_ENABLE_RTREE"
+
+gcc %{optflags} $CFLAGS -o %{_install_dir}/libe_sqlite3.so \
 SQLitePCL.raw/sqlite3/sqlite3.c
 
 #execute using 'mono' instead of 'cli'
