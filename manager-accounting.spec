@@ -17,7 +17,7 @@ URL:        http://www.manager.io
 BuildArch:  x86_64 armv7hl
 Source0:    https://mngr.s3.amazonaws.com/manager-accounting.zip
 Source1:    LICENSE
-Source2:    SQLitePCL.raw.git.41f2c4e.tar.gz
+Source2:    SQLitePCL.raw-3.18.2-git41f2c4e.tar.gz
 Requires:   mono-core mono-web gtk-sharp2 webkitgtk webkit-sharp
 
 
