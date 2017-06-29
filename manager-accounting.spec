@@ -50,12 +50,7 @@ sed -i 's/cli/mono/' %{_install_dir}/%{name}
 rm -rf %{buildroot}
 
 %{__install} -d %{buildroot}/%{_install_dir}
-%{__install} -p -m0755 %{_install_dir}/%{name} %{buildroot}/%{_install_dir}
-%{__install} -p -m0755 %{_install_dir}/*.exe %{buildroot}/%{_install_dir}
-%{__install} -p -m0644 %{_install_dir}/*.dll %{buildroot}/%{_install_dir}
-%{__install} -p -m0644 %{_install_dir}/*.ttf %{buildroot}/%{_install_dir}
-%{__install} -p -m0644 %{_install_dir}/*.so %{buildroot}/%{_install_dir}
-
+%{__install} -p %{_install_dir}/* %{buildroot}/%{_install_dir}
 
 %{__install} -d %{buildroot}/%{_bindir}
 ln -sf /%{_install_dir}/%{name} %{buildroot}/%{_bindir}/%{name}
@@ -91,8 +86,14 @@ rm -rf %{_builddir}/%{name}*
 %defattr(-,root,root,-)
 %license LICENSE
 %{_bindir}/%{name}
-%{_datadir}/*
-/%{_install_dir}/*
+%{_datadir}/applications/*
+%{_datadir}/icons/*
+%dir /%{_install_dir}
+%attr(0755,root,root) /%{_install_dir}/%name
+%attr(0755,root,root) /%{_install_dir}/*.exe
+/%{_install_dir}/*.dll
+/%{_install_dir}/*.ttf
+/%{_install_dir}/*.so
 
 
 %changelog
