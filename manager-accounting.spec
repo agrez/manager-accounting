@@ -8,8 +8,8 @@
 %global __requires_exclude ^(%{private_libs})\\.so
 
 Name:       %{name}
-Version:    17.6.52
-Release:    2%{?dist}
+Version:    17.6.62
+Release:    1%{?dist}
 Summary:    Accounting software
 Group:      Office/Productivity
 License:    Redistributable, no modification permitted
@@ -100,6 +100,14 @@ rm -rf %{_builddir}/%{name}*
 
 
 %changelog
+* Thu Jun 29 2017 Vaughan <devel at agrez dot net> - 17.6.62-1
+- New release 17.6.62
+- Update Sources2 name
+- Drop BuildArch resitrictions
+- Build libe_sqlite3.so using %%optflags
+- Update %%install & %%files
+- Add Provides bundled(libe_sqlite3)
+
 * Mon Jun 26 2017 Vaughan <devel at agrez dot net> - 17.6.52-2
 - Build libe_sqlite3.so from source
 - Exclude libe_sqlite3.so from Requires & Provides
