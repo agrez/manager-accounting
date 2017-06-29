@@ -16,6 +16,9 @@ License:    Redistributable, no modification permitted
 URL:        http://www.manager.io
 Source0:    https://mngr.s3.amazonaws.com/manager-accounting.zip
 Source1:    LICENSE
+# Get Source2 here: https://github.com/ericsink/SQLitePCL.raw
+# As releases are 70+MB, everything is stripped out bar the
+# sqlite3 dir and misc license/readme/notice txt files.
 Source2:    SQLitePCL.raw-3.18.2-git41f2c4e.tar.gz
 Requires:   mono-core mono-web gtk-sharp2 webkitgtk webkit-sharp
 Provides:   bundled(libe_sqlite3) = 3.18.2
