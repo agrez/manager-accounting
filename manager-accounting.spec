@@ -8,7 +8,7 @@
 %global __requires_exclude ^(%{private_libs})\\.so
 
 Name:       %{name}
-Version:    17.6.62
+Version:    17.7.8
 Release:    1%{?dist}
 Summary:    Accounting software
 Group:      Office/Productivity
@@ -97,9 +97,14 @@ rm -rf %{_builddir}/%{name}*
 /%{_install_dir}/*.dll
 /%{_install_dir}/*.ttf
 /%{_install_dir}/*.so
+/%{_install_dir}/*.json
 
 
 %changelog
+* Thu Jul 13 2017 Vaughan <devel at agrez dot net> - 17.7.8-1
+- New release 17.7.8
+- Package Guides.json
+
 * Thu Jun 29 2017 Vaughan <devel at agrez dot net> - 17.6.62-1
 - New release 17.6.62
 - Update Sources2 name
