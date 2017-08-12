@@ -4,9 +4,9 @@
 %define     version_txt %(curl https://mngr.s3.amazonaws.com/version.txt)
 
 # We don't want any bundled libs in these directories to generate Provides
-%global __provides_exclude_from %{_install_dir}/.*\\.so
-%global private_libs libe_sqlite3
-%global __requires_exclude ^(%{private_libs})\\.so
+%global     __provides_exclude_from %{_install_dir}/.*\\.so
+%global     private_libs libe_sqlite3
+%global     __requires_exclude ^(%{private_libs})\\.so
 
 Name:       %{name}
 Version:    %{version_txt}
@@ -103,6 +103,12 @@ rm -rf %{_builddir}/%{name}*
 
 
 %changelog
+* Sat Aug 12 2017 Vaughan <devel at agrez dot net> - 17.7.67-1
+- Update to new release
+- Use cpp rpm macro to build sqlite
+- Obtain version number automatically
+- Fix unzipping of source (main file is now .xz)
+
 * Thu Jul 13 2017 Vaughan <devel at agrez dot net> - 17.7.8-1
 - New release 17.7.8
 - Package Guides.json
