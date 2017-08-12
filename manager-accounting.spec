@@ -1,6 +1,7 @@
 %global     debug_package %{nil}
 %define     name manager-accounting
 %define     _install_dir opt/%{name}
+%define     version_txt %(curl https://mngr.s3.amazonaws.com/version.txt)
 
 # We don't want any bundled libs in these directories to generate Provides
 %global __provides_exclude_from %{_install_dir}/.*\\.so
@@ -8,7 +9,7 @@
 %global __requires_exclude ^(%{private_libs})\\.so
 
 Name:       %{name}
-Version:    17.7.8
+Version:    %{version_txt}
 Release:    1%{?dist}
 Summary:    Accounting software
 Group:      Office/Productivity
@@ -20,6 +21,7 @@ Source1:    LICENSE
 # As releases are 70+MB, everything is stripped out bar the
 # sqlite3 dir and misc license/readme/notice txt files.
 Source2:    SQLitePCL.raw-3.18.2-git41f2c4e.tar.gz
+BuildRequires: curl
 Requires:   mono-core mono-web gtk-sharp2 webkitgtk webkit-sharp
 Provides:   bundled(libe_sqlite3) = 3.18.2
 
