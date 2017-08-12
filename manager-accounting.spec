@@ -102,6 +102,13 @@ rm -rf %{_builddir}/%{name}*
 
 
 %changelog
+* Sat Aug 12 2017 Vaughan <devel at agrez dot net> - 17.7.80-1
+- Update to new release
+- Don't use version.txt file to get latest version number
+  (seems its not necessarily the latest)
+- Modify SOURCE0 url
+- Use %%__cc rpm macro instead
+
 * Sat Aug 12 2017 Vaughan <devel at agrez dot net> - 17.7.67-1
 - Update to new release
 - Use cpp rpm macro to build sqlite
