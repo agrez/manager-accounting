@@ -42,7 +42,7 @@ CFLAGS="-shared -fPIC -DNDEBUG -DSQLITE_DEFAULT_FOREIGN_KEYS=1 \
 -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_JSON1 \
 -DSQLITE_ENABLE_RTREE"
 
-gcc %{optflags} $CFLAGS -o %{_install_dir}/libe_sqlite3.so \
+%__cpp %{optflags} $CFLAGS -o %{_install_dir}/libe_sqlite3.so \
 SQLitePCL.raw/sqlite3/sqlite3.c
 
 #execute using 'mono' instead of 'cli'
