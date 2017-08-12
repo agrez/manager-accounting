@@ -14,7 +14,7 @@ Summary:    Accounting software
 Group:      Office/Productivity
 License:    Redistributable, no modification permitted
 URL:        http://www.manager.io
-Source0:    https://mngr.s3.amazonaws.com/manager-accounting.zip
+Source0:    https://mngr.s3.amazonaws.com/%{version}/manager-accounting.zip
 Source1:    LICENSE
 # Get Source2 here: https://github.com/ericsink/SQLitePCL.raw
 # As releases are 70+MB, everything is stripped out bar the
