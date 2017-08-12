@@ -33,7 +33,7 @@ receivables, payables, taxes and comprehensive financial reports.
 
 %prep
 %setup -c -T -a 2
-unzip -p %{SOURCE0} %{name}_%{version}.tar.gz |tar xvz --strip-components=1
+unzip -p %{SOURCE0} %{name}_%{version}.tar.xz |tar xvJ --strip-components=1
 cp -a %{SOURCE1} .
 
 
