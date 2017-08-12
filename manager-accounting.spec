@@ -1,7 +1,6 @@
 %global     debug_package %{nil}
 %define     name manager-accounting
 %define     _install_dir opt/%{name}
-%define     version_txt %(curl https://mngr.s3.amazonaws.com/version.txt)
 
 # We don't want any bundled libs in these directories to generate Provides
 %global     __provides_exclude_from %{_install_dir}/.*\\.so
@@ -9,7 +8,7 @@
 %global     __requires_exclude ^(%{private_libs})\\.so
 
 Name:       %{name}
-Version:    %{version_txt}
+Version:    17.7.80
 Release:    1%{?dist}
 Summary:    Accounting software
 Group:      Office/Productivity
