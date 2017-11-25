@@ -8,7 +8,7 @@
 %global     __requires_exclude ^(%{private_libs})\\.so
 
 Name:       %{name}
-Version:    17.7.80
+Version:    17.11.29
 Release:    1%{?dist}
 Summary:    Accounting software
 Group:      Office/Productivity
@@ -102,6 +102,9 @@ rm -rf %{_builddir}/%{name}*
 
 
 %changelog
+* Sat Nov 25 2017 Vaughan <devel at agrez dot net> - 17.11.29-1
+- Update to latest release
+
 * Sat Aug 12 2017 Vaughan <devel at agrez dot net> - 17.7.80-1
 - Update to new release
 - Don't use version.txt file to get latest version number
