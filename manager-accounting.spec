@@ -20,7 +20,9 @@ Source1:    LICENSE
 # As releases are 70+MB, everything is stripped out bar the
 # sqlite3 dir and misc license/readme/notice txt files.
 Source2:    SQLitePCL.raw-3.18.2-git41f2c4e.tar.gz
+Source3:    manager-accounting.appdata.xml
 BuildRequires: curl
+BuildRequires: libappstream-glib
 Requires:   mono-core mono-web gtk-sharp2 webkitgtk webkit-sharp
 Provides:   bundled(libe_sqlite3) = 3.18.2
 
@@ -62,6 +64,10 @@ ln -sf /%{_install_dir}/%{name} %{buildroot}/%{_bindir}/%{name}
 %{__install} -d %{buildroot}/%{_datadir}/applications
 %{__install} -p -m0644 usr/share/applications/*.desktop %{buildroot}/%{_datadir}/applications/
 
+%{__install} -d %{buildroot}/%{_datadir}/appdata
+%{__install} -p -m0644 %{SOURCE3} %{buildroot}/%{_datadir}/appdata/
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.xml
+
 %{__install} -d %{buildroot}/%{_datadir}/icons
 cp -r usr/share/icons/* %{buildroot}/%{_datadir}/icons/
 
@@ -91,6 +97,7 @@ rm -rf %{_builddir}/%{name}*
 %license LICENSE
 %{_bindir}/%{name}
 %{_datadir}/applications/*
+%{_datadir}/appdata/*
 %{_datadir}/icons/*
 %dir /%{_install_dir}
 %attr(0755,root,root) /%{_install_dir}/%name

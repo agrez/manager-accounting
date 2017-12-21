@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>manager-accounting.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Redistributable, no modification permitted</project_license>
+  <name>Manager Acounting</name>
+  <summary>Accounting software</summary>
+  <description>
+    <p>
+    Manager is free accounting software. It features an intuitive
+    and innovative user interface with modules such as cashbook, invoicing,
+    receivables, payables, taxes and comprehensive financial reports.
+   </p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image type="source">https://screenshots-88ef.kxcdn.com/lg-summary.png</image>
+      <caption/>
+    </screenshot>
+  </screenshots>
+  <translation/>
+  <developer_name>NGSoftware Pty Ltd.</developer_name>
+  <url type="homepage">http://www.manager.io/</url>
+  <url type="bugtracker">https://forum.manager.io</url>
+  <url type="help">https://guides.manager.io</url>
+</component>
