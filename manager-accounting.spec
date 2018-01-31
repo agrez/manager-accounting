@@ -8,7 +8,7 @@
 %global     __requires_exclude ^(%{private_libs})\\.so
 
 Name:       %{name}
-Version:    17.12.34
+Version:    18.1.39
 Release:    1%{?dist}
 Summary:    Accounting software
 Group:      Office/Productivity
@@ -109,6 +109,9 @@ rm -rf %{_builddir}/%{name}*
 
 
 %changelog
+* Wed Jan 31 2018 Vaughan <devel at agrez dot net> - 18.1.39-1
+- Update to latest release
+
 * Thu Dec 21 2017 Vaughan <devel at agrez dot net> - 17.12.34-1
 - Update to latest release
 - Add initial .appdata.xml file
