@@ -1,6 +1,7 @@
 %global     debug_package %{nil}
 %global     name manager-accounting
 %global     _install_dir opt/%{name}
+%global     commit_sql f03e65e0f968818b4d03c97a922ac351b1c61714
 
 # We don't want any bundled libs in these directories to generate Provides
 %global     __provides_exclude_from %{_install_dir}/.*\\.so
@@ -16,12 +17,9 @@ License:    Redistributable, no modification permitted
 URL:        http://www.manager.io
 Source0:    https://mngr.s3.amazonaws.com/%{version}/manager-accounting.zip
 Source1:    LICENSE
-# Get Source2 here: https://github.com/ericsink/SQLitePCL.raw
-# As releases are 70+MB, everything is stripped out bar the
-# sqlite3 dir and misc license/readme/notice txt files.
-Source2:    SQLitePCL.raw-3.18.2-git41f2c4e.tar.gz
-Source3:    manager-accounting.appdata.xml
-BuildRequires: curl
+Source2:    https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/%{commit_sql}/sqlite3/sqlite3.c
+Source3:    https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/%{commit_sql}/LICENSE.TXT
+Source4:    manager-accounting.appdata.xml
 BuildRequires: libappstream-glib
 Requires:   mono-core
 Requires:   gtk-sharp3
@@ -35,9 +33,11 @@ receivables, payables, taxes and comprehensive financial reports.
 
 
 %prep
-%setup -c -T -a 2
+%setup -c -T
 unzip -p %{SOURCE0} %{name}_%{version}.tar.xz |tar xvJ --strip-components=1
 cp -a %{SOURCE1} .
+cp -a %{SOURCE2} .
+cp -a %{SOURCE3} ./LICENSE.SQLitePCL.raw.txt
 
 
 %build
@@ -47,8 +47,7 @@ CFLAGS="-shared -fPIC -DNDEBUG -DSQLITE_DEFAULT_FOREIGN_KEYS=1 \
 -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_JSON1 \
 -DSQLITE_ENABLE_RTREE"
 
-%__cc %{optflags} $CFLAGS -o %{_install_dir}/libe_sqlite3.so \
-SQLitePCL.raw/sqlite3/sqlite3.c
+%__cc %{optflags} $CFLAGS -o %{_install_dir}/libe_sqlite3.so sqlite3.c
 
 #execute using 'mono' instead of 'cli'
 sed -i 's/cli/mono/' %{_install_dir}/%{name}
@@ -67,7 +66,7 @@ ln -sf /%{_install_dir}/%{name} %{buildroot}/%{_bindir}/%{name}
 %{__install} -p -m0644 usr/share/applications/*.desktop %{buildroot}/%{_datadir}/applications/
 
 %{__install} -d %{buildroot}/%{_datadir}/appdata
-%{__install} -p -m0644 %{SOURCE3} %{buildroot}/%{_datadir}/appdata/
+%{__install} -p -m0644 %{SOURCE4} %{buildroot}/%{_datadir}/appdata/
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.xml
 
 %{__install} -d %{buildroot}/%{_datadir}/icons
@@ -96,7 +95,7 @@ rm -rf %{_builddir}/%{name}*
 
 %files
 %defattr(-,root,root,-)
-%license LICENSE
+%license LICENSE LICENSE.SQLitePCL.raw.txt
 %{_bindir}/%{name}
 %{_datadir}/applications/*
 %{_datadir}/appdata/*
