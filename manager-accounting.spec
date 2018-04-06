@@ -8,6 +8,7 @@
 %global     private_libs libe_sqlite3
 %global     __requires_exclude ^(%{private_libs})\\.so
 
+
 Name:       %{name}
 Version:    18.4.1
 Release:    1%{?dist}
@@ -76,7 +77,6 @@ cp -r usr/share/icons/* %{buildroot}/%{_datadir}/icons/
 
 %clean
 rm -rf %{buildroot}
-rm -rf %{_builddir}/%{name}*
 
 
 %files
@@ -97,6 +97,11 @@ rm -rf %{_builddir}/%{name}*
 
 
 %changelog
+* Fri Apr 06 2018 Vaughan <devel at agrez dot net> - 18.4.1-1
+- Update to latest release
+- Update libe_sqlite3 to 3.22.0
+- Remove %%post scripts (no longer required in Fedora releases >= 26)
+
 * Wed Jan 31 2018 Vaughan <devel at agrez dot net> - 18.1.39-1
 - Update to latest release
 
