@@ -1,6 +1,6 @@
 %global     debug_package %{nil}
-%define     name manager-accounting
-%define     _install_dir opt/%{name}
+%global     name manager-accounting
+%global     _install_dir opt/%{name}
 
 # We don't want any bundled libs in these directories to generate Provides
 %global     __provides_exclude_from %{_install_dir}/.*\\.so
@@ -8,7 +8,7 @@
 %global     __requires_exclude ^(%{private_libs})\\.so
 
 Name:       %{name}
-Version:    18.1.39
+Version:    18.4.1
 Release:    1%{?dist}
 Summary:    Accounting software
 Group:      Office/Productivity
@@ -23,8 +23,10 @@ Source2:    SQLitePCL.raw-3.18.2-git41f2c4e.tar.gz
 Source3:    manager-accounting.appdata.xml
 BuildRequires: curl
 BuildRequires: libappstream-glib
-Requires:   mono-core mono-web gtk-sharp2 webkitgtk webkit-sharp
-Provides:   bundled(libe_sqlite3) = 3.18.2
+Requires:   mono-core
+Requires:   gtk-sharp3
+Requires:   webkitgtk4
+Provides:   bundled(libe_sqlite3) = 3.22.0
 
 %description
 Manager is free accounting software. It features an intuitive
