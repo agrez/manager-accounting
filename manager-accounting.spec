@@ -57,6 +57,7 @@ sed -i 's/cli/mono/' %{_install_dir}/%{name}
 rm -rf %{buildroot}
 
 %{__install} -d %{buildroot}/%{_install_dir}
+mv -f %{_install_dir}/*.html .
 %{__install} -p %{_install_dir}/* %{buildroot}/%{_install_dir}
 
 %{__install} -d %{buildroot}/%{_bindir}
@@ -81,6 +82,7 @@ rm -rf %{_builddir}/%{name}*
 %files
 %defattr(-,root,root,-)
 %license LICENSE LICENSE.SQLitePCL.raw.txt
+%doc Support.html Users.html
 %{_bindir}/%{name}
 %{_datadir}/applications/*
 %{_datadir}/appdata/*
