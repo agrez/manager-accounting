@@ -1,16 +1,16 @@
 %global     debug_package %{nil}
 %global     name manager-accounting
-%global     _install_dir opt/%{name}
+%global     inst_dir opt/%{name}
 %global     commit_sql f03e65e0f968818b4d03c97a922ac351b1c61714
 
 # We don't want any bundled libs in these directories to generate Provides
-%global     __provides_exclude_from %{_install_dir}/.*\\.so
+%global     __provides_exclude_from %{inst_dir}/.*\\.so
 %global     private_libs libe_sqlite3
 %global     __requires_exclude ^(%{private_libs})\\.so
 
 
 Name:       %{name}
-Version:    18.4.1
+Version:    18.7.3
 Release:    1%{?dist}
 Summary:    Accounting software
 Group:      Office/Productivity
@@ -48,21 +48,21 @@ CFLAGS="-shared -fPIC -DNDEBUG -DSQLITE_DEFAULT_FOREIGN_KEYS=1 \
 -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_JSON1 \
 -DSQLITE_ENABLE_RTREE"
 
-%__cc %{optflags} $CFLAGS -o %{_install_dir}/libe_sqlite3.so sqlite3.c
+%__cc %{optflags} $CFLAGS -o %{inst_dir}/libe_sqlite3.so sqlite3.c
 
 #execute using 'mono' instead of 'cli'
-sed -i 's/cli/mono/' %{_install_dir}/%{name}
+sed -i 's/cli/mono/' %{inst_dir}/%{name}
 
 
 %install
 rm -rf %{buildroot}
 
-%{__install} -d %{buildroot}/%{_install_dir}
-mv -f %{_install_dir}/*.html .
-%{__install} -p %{_install_dir}/* %{buildroot}/%{_install_dir}
+%{__install} -d %{buildroot}/%{inst_dir}
+mv -f %{inst_dir}/*.html .
+%{__install} -p %{inst_dir}/* %{buildroot}/%{inst_dir}
 
 %{__install} -d %{buildroot}/%{_bindir}
-ln -sf /%{_install_dir}/%{name} %{buildroot}/%{_bindir}/%{name}
+ln -sf /%{inst_dir}/%{name} %{buildroot}/%{_bindir}/%{name}
 
 %{__install} -d %{buildroot}/%{_datadir}/applications
 %{__install} -p -m0644 usr/share/applications/*.desktop %{buildroot}/%{_datadir}/applications/
@@ -75,10 +75,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 cp -r usr/share/icons/* %{buildroot}/%{_datadir}/icons/
 
 
-%clean
-rm -rf %{buildroot}
-
-
 %files
 %defattr(-,root,root,-)
 %license LICENSE LICENSE.SQLitePCL.raw.txt
@@ -87,16 +83,21 @@ rm -rf %{buildroot}
 %{_datadir}/applications/*
 %{_datadir}/appdata/*
 %{_datadir}/icons/*
-%dir /%{_install_dir}
-%attr(0755,root,root) /%{_install_dir}/%name
-%attr(0755,root,root) /%{_install_dir}/*.exe
-/%{_install_dir}/*.dll
-/%{_install_dir}/*.ttf
-/%{_install_dir}/*.so
-/%{_install_dir}/*.json
+%dir /%{inst_dir}
+%attr(0755,root,root) /%{inst_dir}/%name
+%attr(0755,root,root) /%{inst_dir}/*.exe
+/%{inst_dir}/*.dll
+/%{inst_dir}/*.ttf
+/%{inst_dir}/*.so
+/%{inst_dir}/*.json
+/%{inst_dir}/*.ico
 
 
 %changelog
+* Wed Jul 04 2018 Vaughan <devel at agrez dot net> - 18.7.3-1
+- Update to latest release
+- Update spec
+
 * Fri Apr 06 2018 Vaughan <devel at agrez dot net> - 18.4.1-1
 - Update to latest release
 - Update libe_sqlite3 to 3.22.0
