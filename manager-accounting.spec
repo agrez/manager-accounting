@@ -11,7 +11,7 @@
 
 Name:       %{name}
 Version:    19.5.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Accounting software
 Group:      Office/Productivity
 License:    Redistributable, no modification permitted
@@ -22,6 +22,7 @@ Source2:    https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/%{commit_sq
 Source3:    https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/%{commit_sql}/LICENSE.TXT
 Source4:    manager-accounting.appdata.xml
 BuildRequires: libappstream-glib
+BuildRequires: gcc
 Requires:   mono-core
 Requires:   gtk-sharp3
 Requires:   webkitgtk4
@@ -94,6 +95,9 @@ cp -r usr/share/icons/* %{buildroot}/%{_datadir}/icons/
 
 
 %changelog
+* Mon May 06 2019 Vaughan <devel at agrez dot net> - 19.5.6-2
+- Add buuildrequires: gcc
+
 * Mon May 06 2019 Vaughan <devel at agrez dot net> - 19.5.6-1
 - Update to latest release
 
