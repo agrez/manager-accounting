@@ -10,13 +10,13 @@
 
 
 Name:       %{name}
-Version:    18.7.3
+Version:    19.5.6
 Release:    1%{?dist}
 Summary:    Accounting software
 Group:      Office/Productivity
 License:    Redistributable, no modification permitted
 URL:        http://www.manager.io
-Source0:    https://mngr.s3.amazonaws.com/%{version}/manager-accounting.zip
+Source0:    https://d2ap5zrlkavzl7.cloudfront.net/%{version}/manager-accounting.zip
 Source1:    LICENSE
 Source2:    https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/%{commit_sql}/sqlite3/sqlite3.c
 Source3:    https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/%{commit_sql}/LICENSE.TXT
@@ -58,7 +58,6 @@ sed -i 's/cli/mono/' %{inst_dir}/%{name}
 rm -rf %{buildroot}
 
 %{__install} -d %{buildroot}/%{inst_dir}
-mv -f %{inst_dir}/*.html .
 %{__install} -p %{inst_dir}/* %{buildroot}/%{inst_dir}
 
 %{__install} -d %{buildroot}/%{_bindir}
@@ -78,7 +77,6 @@ cp -r usr/share/icons/* %{buildroot}/%{_datadir}/icons/
 %files
 %defattr(-,root,root,-)
 %license LICENSE LICENSE.SQLitePCL.raw.txt
-%doc Support.html Users.html
 %{_bindir}/%{name}
 %{_datadir}/applications/*
 %{_datadir}/appdata/*
@@ -91,9 +89,14 @@ cp -r usr/share/icons/* %{buildroot}/%{_datadir}/icons/
 /%{inst_dir}/*.so
 /%{inst_dir}/*.json
 /%{inst_dir}/*.ico
+/%{inst_dir}/*.html
+/%{inst_dir}/*.url
 
 
 %changelog
+* Mon May 06 2019 Vaughan <devel at agrez dot net> - 19.5.6-1
+- Update to latest release
+
 * Wed Jul 04 2018 Vaughan <devel at agrez dot net> - 18.7.3-1
 - Update to latest release
 - Update spec
